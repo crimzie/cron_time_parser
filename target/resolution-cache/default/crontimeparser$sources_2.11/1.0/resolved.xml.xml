@@ -4,7 +4,7 @@
 		module="crontimeparser$sources_2.11"
 		revision="1.0"
 		status="integration"
-		publication="20160916225442"
+		publication="20161027101408"
 	/>
 	<configurations>
 		<conf name="default" visibility="public" description=""/>
