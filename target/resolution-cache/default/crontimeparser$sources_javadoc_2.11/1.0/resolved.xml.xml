@@ -4,7 +4,7 @@
 		module="crontimeparser$sources_javadoc_2.11"
 		revision="1.0"
 		status="integration"
-		publication="20160916225443"
+		publication="20161026222656"
 	/>
 	<configurations>
 		<conf name="compile" visibility="public" description=""/>
