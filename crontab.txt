@@ -1,0 +1,7 @@
+# DWH configuration
+CRON_TZ=America/Bogota
+0       3     *       *       *       test -f ${HOME}/crontab.lock || ( cd ${HOME} && be run stats/stats_agent; be run dwh/dnrm_extract )
+
+# log rotation
+CRON_TZ=GMT
+38       1     *       *       *       test ! -d ${HOME}/data/etadirect || ( /usr/bin/nice /var/www/etadirect/utils/rmlogs.sh --keep-days=14 --keep-caches --with-files > /dev/null )

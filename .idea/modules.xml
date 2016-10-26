@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea_modules/cronTimeParser.iml" filepath="$PROJECT_DIR$/.idea_modules/cronTimeParser.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea_modules/cronTimeParser-build.iml" filepath="$PROJECT_DIR$/.idea_modules/cronTimeParser-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/crontimeparser.iml" filepath="$PROJECT_DIR$/.idea/modules/crontimeparser.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/crontimeparser-build.iml" filepath="$PROJECT_DIR$/.idea/modules/crontimeparser-build.iml" />
+    </modules>
+  </component>
+</project>

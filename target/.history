@@ -1,0 +1,7 @@
+clean
+gen-idea
+build
+package
+exit
+jetty:start
+exit

@@ -1,0 +1,26 @@
+<project version="4">
+  <component name="EntryPointsManager">
+    <entry_points version="2.0"/>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option value="Bundled (Maven 3)" name="mavenHome"/>
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component settingsEditedManually="false" name="ProjectLevelVcsManager">
+    <OptionsSetting id="Add" value="true"/>
+    <OptionsSetting id="Remove" value="true"/>
+    <OptionsSetting id="Checkout" value="true"/>
+    <OptionsSetting id="Update" value="true"/>
+    <OptionsSetting id="Status" value="true"/>
+    <OptionsSetting id="Edit" value="true"/>
+    <ConfirmationsSetting id="Add" value="0"/>
+    <ConfirmationsSetting id="Remove" value="0"/>
+  </component>
+  <component 
+  project-jdk-type="JavaSDK" project-jdk-name="1.8" jdk-15="true" assert-keyword="true" default="false" languageLevel="JDK_1_8" version="2" name="ProjectRootManager">
+    <output url="file://$PROJECT_DIR$/out"/>
+</component>
+</project>
