@@ -1,6 +1,4 @@
-package com
-package crimzie
-package cronparser
+#!/usr/bin/env amm
 
 import java.io.FileNotFoundException
 import java.nio.charset.CodingErrorAction.REPLACE
@@ -13,25 +11,17 @@ import scala.io.{Codec, Source}
 import scala.language.postfixOps
 import scala.util.{Failure, Success, Try}
 
-object Parser extends App {
-  implicit val codec: Codec = UTF8 onMalformedInput REPLACE onUnmappableCharacter REPLACE
+implicit val codec: Codec = UTF8 onMalformedInput REPLACE onUnmappableCharacter REPLACE
 
-  if (args(0) == "help") {
-    println("This script takes 3 arguments:\n" +
-      "cron table file;\n" +
-      "start time in hours and minutes separated with a colon;\n" +
-      "end time in hours and minutes separated with a colon.")
-    System exit 0
-  }
-  if (args.length < 3) {
-    println("Not enough arguments.")
-    System exit 1
-  }
-
-  val crontab: String = args(0)
+@doc("This script parses a cron table file and selects tasks that fit into a time frame.")
+@main
+def main(
+          crontab: String @doc("cron table file to scan for missed tasks"),
+          from: String @doc("time frame start as time of day in hours and minutes separated with a colon"),
+          till: String @doc("time frame end as time of day in hours and minutes separated with a colon")) = println {
   Try {
-    val startTime: LocalTime = LocalTime parse args(1)
-    val endTime: LocalTime = LocalTime parse args(2)
+    val startTime: LocalTime = LocalTime parse from
+    val endTime: LocalTime = LocalTime parse till
     /* Read the file, drop empty lines, group lines by 3: */
     Source fromFile crontab getLines() filter (_.nonEmpty) sliding(3, 3) map { seq =>
       /* Split third lines by spaces: */
@@ -51,22 +41,16 @@ object Parser extends App {
       val skipped = (locStart > locEnd) ^ (locStart < time && locEnd >= time)
       /* Format task name and task command into output string and filter in skipped tasks: */
       (s" $head\n  $other", skipped)
-    } collect { case (a, b) if b => a }
+    } collect { case (a, b) if b => a } toSeq
   } match {
-    case Failure(e) => e match {
-      case _: DateTimeParseException => println("Failed to parse time frame.")
-      case _: FileNotFoundException => println("File not found.")
-      case _: SecurityException => println("File is not accessible for reading.")
-      case _: ArrayIndexOutOfBoundsException => println("Bad cron table formatting.")
-      case _ => println(s"Error: ${e.getMessage}")
-    }
-      System exit 1
-    case Success(iter) =>
-      println(s"In file $crontab\n")
-      if (iter.nonEmpty) {
-        val seq = iter.toSeq
-        println(s"${seq.size} tasks were missed:")
-        seq foreach println
-      } else println("no tasks were missed.")
+    case Failure(e: DateTimeParseException) => s"Failed to parse time frame: ${e.getMessage}."
+    case Failure(_: FileNotFoundException) => "File not found."
+    case Failure(_: SecurityException) => "File is not accessible for reading."
+    case Failure(_: ArrayIndexOutOfBoundsException) => "Bad cron table formatting."
+    case Failure(e) => s"Error: ${e.getMessage}"
+    case Success(seq) => s"In file $crontab\n${
+      if (seq.nonEmpty) s"${seq.size} task${if (seq.size > 1) "s were" else " was"} missed:\n${seq mkString "\n"}"
+      else "no tasks were missed."
+    }"
   }
 }
